@@ -58,11 +58,11 @@ impl From<NoncePair> for CommitmentShare {
 
 /// A pair of a nonce and a commitment to it.
 #[derive(Clone, Debug)]
-pub(crate) struct Commitment {
+pub struct Commitment {
     /// The nonce.
-    pub(crate) nonce: Scalar,
+    pub nonce: Scalar,
     /// The commitment.
-    pub(crate) sealed: RistrettoPoint,
+    pub sealed: RistrettoPoint,
 }
 
 impl Zeroize for Commitment {
@@ -93,11 +93,11 @@ pub struct CommitmentShare {
     /// The hiding commitment.
     ///
     /// This is \\((d\_{ij}, D\_{ij})\\) in the paper.
-    pub(crate) hiding: Commitment,
+    pub hiding: Commitment,
     /// The binding commitment.
     ///
     /// This is \\((e\_{ij}, E\_{ij})\\) in the paper.
-    pub(crate) binding: Commitment,
+    pub binding: Commitment,
 }
 
 /// Test equality in constant-time.

@@ -193,9 +193,14 @@ use crate::parameters::Parameters;
 
 /// A struct for holding a shard of the shared secret, in order to ensure that
 /// the shard is overwritten with zeroes when it falls out of scope.
-#[derive(Zeroize)]
+#[derive(Zeroize,Clone)]
 #[zeroize(drop)]
 pub struct Coefficients(pub(crate) Vec<Scalar>);
+
+/// Constructs coeff
+pub fn construct_coeffs(f: Vec<Scalar>) -> Coefficients {
+    return Coefficients(f);
+}
 
 /// A commitment to the dealer's secret polynomial coefficients for Feldman's
 /// verifiable secret sharing scheme.
@@ -574,7 +579,7 @@ pub struct SecretShare {
     pub index: u32,
     /// The final evaluation of the polynomial for the participant-respective
     /// indeterminant.
-    pub(crate) polynomial_evaluation: Scalar,
+    pub polynomial_evaluation: Scalar,
 }
 
 impl SecretShare {
@@ -731,9 +736,9 @@ impl IndividualPublicKey {
 #[zeroize(drop)]
 pub struct SecretKey {
     /// The participant index to which this key belongs.
-    pub(crate) index: u32,
+    pub index: u32,
     /// The participant's long-lived secret share of the group signing key.
-    pub(crate) key: Scalar,
+    pub key: Scalar,
 }
 
 impl SecretKey {
